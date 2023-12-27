@@ -21,3 +21,8 @@ async def get_feature(feature_name: str):
 @app.get('/users/list')
 async def get_users_list():
     return db
+
+@app.post('/create-user')
+async def create_user(user: User):
+    db.append(user)
+    return {'users' : db}
