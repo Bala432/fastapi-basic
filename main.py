@@ -1,4 +1,4 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 from fastapi import FastAPI
 from models import User, Gender, Role
 from typing import List
@@ -26,3 +26,12 @@ async def get_users_list():
 async def create_user(user: User):
     db.append(user)
     return {'users' : db}
+
+@app.delete('/user/{user_id}/delete')
+async def delete_user(user_id: UUID):
+    for user in db:
+        if user.id == user_id:
+            db.remove(user)
+            return {'Removed UserID' : user_id}
+        
+    
